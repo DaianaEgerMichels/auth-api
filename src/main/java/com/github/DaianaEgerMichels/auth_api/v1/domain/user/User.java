@@ -1,4 +1,4 @@
-package com.github.DaianaEgerMichels.auth_api.domain.user;
+package com.github.DaianaEgerMichels.auth_api.v1.domain.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
