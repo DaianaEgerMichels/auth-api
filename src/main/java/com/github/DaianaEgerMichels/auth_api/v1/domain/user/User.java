@@ -1,7 +1,6 @@
 package com.github.DaianaEgerMichels.auth_api.v1.domain.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +22,8 @@ import java.util.List;
 @Entity(name = "users")
 public class User implements UserDetails {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String login;
     private String password;
