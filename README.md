@@ -55,7 +55,7 @@ Estrutura do Projeto
 |   |   |                └── auth_api
 │   │   │                   └── v1
 │   │   │                     └── controllers (en-US: API endpoints; pt-BR: Pontos de acesso da API)
-│   │   │                     ├── config (en-US: Security configurations; pt-BR: Configurações de segurança, etc.)
+│   │   │                     ├── infra (en-US: Security configurations; pt-BR: Configurações de segurança, etc.)
 │   │   │                     ├── domain (en-US: Entities at domain, DTOs; pt-BR: Entidades de domínio, DTOs)
 │   │   │                     ├── repositories (en-US: Database access layer; pt-BR: Camada de acesso a dados)
 │   │   │                     └── services (en-US: Business rules ; pt-BR: Regras de negócio)
