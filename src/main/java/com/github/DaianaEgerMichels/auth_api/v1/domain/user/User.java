@@ -33,6 +33,14 @@ public class User implements UserDetails {
     private Date lastLogin;
     private Date lastUpdated;
 
+    public User(String login, String password, UserRole role){
+        this.login = login;
+        this.role = role;
+        this.password = password;
+        this.isEnabled = true;
+        this.createdAt = new Date();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN){
