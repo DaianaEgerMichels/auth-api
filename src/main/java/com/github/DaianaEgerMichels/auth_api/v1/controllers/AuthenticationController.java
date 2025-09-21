@@ -1,8 +1,10 @@
 package com.github.DaianaEgerMichels.auth_api.v1.controllers;
 
 import com.github.DaianaEgerMichels.auth_api.v1.domain.dto.AuthenticationDTO;
+import com.github.DaianaEgerMichels.auth_api.v1.domain.dto.LoginResponseDTO;
 import com.github.DaianaEgerMichels.auth_api.v1.domain.dto.RegisterDTO;
 import com.github.DaianaEgerMichels.auth_api.v1.domain.user.User;
+import com.github.DaianaEgerMichels.auth_api.v1.infra.security.TokenService;
 import com.github.DaianaEgerMichels.auth_api.v1.repositories.UserRepository;
 import jakarta.validation.Valid;
 import lombok.NonNull;
@@ -24,9 +26,11 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     @NonNull
     private final UserRepository userRepository;
+    @NonNull
+    private final TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO authenticationDTO){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO authenticationDTO){
         var usernamedPassword = new UsernamePasswordAuthenticationToken(
                 authenticationDTO.login(),
                 authenticationDTO.password()
@@ -34,18 +38,20 @@ public class AuthenticationController {
 
         var auth = this.authenticationManager.authenticate(usernamedPassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO registerDTO) {
+    public ResponseEntity<String> register(@RequestBody @Valid RegisterDTO registerDTO) {
         if(this.userRepository.findByLogin(registerDTO.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
-        User newUser = new User(registerDTO.login(), registerDTO.password(), registerDTO.role());
+        User newUser = new User(registerDTO.login(), encryptedPassword, registerDTO.role());
 
         this.userRepository.save(newUser);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Created with success!");
     }
 }
