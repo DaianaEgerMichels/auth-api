@@ -38,7 +38,7 @@ Spring Security: Industry standard for security in Spring applications.
 Spring Data JPA: For abstraction of the persistence layer and interaction with the database.
 (pt-BR: Para abstração da camada de persistência e interação com o banco de dados.)
 
-Jwt: For generating and validating JWT tokens.
+Jwt: For generating and validating JWT tokens. [Auth0-jwt](https://github.com/auth0/java-jwt)
 (pt-BR: Para a geração e validação de tokens JWT.)
 
 H2 database: Database used to persist user information at runtime.
